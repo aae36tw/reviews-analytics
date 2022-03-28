@@ -40,3 +40,28 @@ for d in data:
 # 整個for loop走完再print
 print('一共有', len(new), '筆留言長度小於100個字母')
 print(new[0])
+
+'''
+# 篩選有good的留言
+good = []
+for d in data:
+    if 'good' in d:
+        good.append(d)
+print('一共有', len(good), '筆留言提到good')
+print(good[0])
+'''
+
+# 進階寫法(list comprehension)，濃縮至一行，第一個d可以放任何想放的東西，像是1
+good = [d for d in data if 'good' in d]
+print(good[0])
+
+# 若包含bad則放進true，反之為false,bad in d為一運算式
+bad = []
+for d in data:
+    bad.append('bad' in d)
+print(bad)
+
+
+# output =[運算 for 變數 in 清單 篩選條件]
+bad = ['bad' in d for d in data]
+print(bad)
