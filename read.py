@@ -1,14 +1,17 @@
+import time
+import progressbar
+
 
 # 每十萬筆印一次讀取數量
 data = []
 count = 0
+bar = progressbar.ProgressBar(max_value=1000000)
 with open('reviews.txt', 'r') as f:
     for line in f:
         data.append(line)
         count += 1
-        if count % 100000 == 0:
-            print(len(data))
-print('檔案讀取完畢，總共有', len(data), '筆資料')
+        bar.update(count)
+        #print('檔案讀取完畢，總共有', len(data), '筆資料')
 
 # 計算每筆留言平均長度
 sum_len = 0
@@ -30,16 +33,18 @@ good = [d for d in data if 'good' in d]
 print(good[0])
 
 # 若包含bad則放進true，反之為false,bad in d為一運算式
-bad = []
-for d in data:
-    bad.append('bad' in d)
-print(bad)
+# bad = []
+# for d in data:
+#     bad.append('bad' in d)
+# print(bad)
 
 # output =[運算 for 變數 in 清單 篩選條件]
-bad = ['bad' in d for d in data]
-print(bad)
+# bad = ['bad' in d for d in data]
+# print(bad)
 
 # 文字計數
+
+start_time = time.time()
 wc = {}  # word_count
 for d in data:
     words = d.split()  # split預設就是空白，若使用' '，遇到連續空白也會切，預設空白會直接忽略
@@ -50,9 +55,10 @@ for d in data:
             wc[word] = 1  # 新增新的key進wc字典
 
 for word in wc:
-    if wc[word] > 200:
+    if wc[word] > 100000:
         print(word, wc[word])
-
+end_time = time.time()
+print('花了', end_time - start_time, 'seconds')
 print(len(wc))
 print(wc['Anderson'])
 
